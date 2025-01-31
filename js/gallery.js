@@ -63,39 +63,43 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-document.addEventListener("DOMContentLoaded", () => {
-    const gallery = document.querySelector(".gallery");
-
-    gallery.addEventListener("click", (event) => {
-        event.preventDefault(); 
-
-        const clickedImage = event.target.closest(".gallery-image");
-
-        if (!clickedImage) return;
-        const largeImageUrl = clickedImage.dataset.source; 
-
-        console.log("Large image URL:", largeImageUrl); 
-    });
-});
 
 document.addEventListener("DOMContentLoaded", () => {
-    const gallery = document.querySelector(".gallery");
+const gallery = document.querySelector(".gallery");
+    
 
-    gallery.addEventListener("click", (event) => {
-        event.preventDefault(); 
+  const galleryMarkup = images
+    .map(({ preview, original, description }) => {
+      return `
+        <li class="gallery-item">
+          <a class="gallery-link" href="${original}">
+            <img
+              class="gallery-image"
+              src="${preview}"
+              data-source="${original}"
+              alt="${description}"
+            />
+          </a>
+        </li>
+      `;
+    })
+    .join("");
 
-        const clickedImage = event.target.closest(".gallery-image");
+  gallery.innerHTML = galleryMarkup;
 
-        if (!clickedImage) return; 
+  
+  gallery.addEventListener("click", (event) => {
+    event.preventDefault();
 
-        const largeImageUrl = clickedImage.dataset.source; 
+    const clickedImage = event.target.closest(".gallery-image");
+    if (!clickedImage) return;
 
-        
-        const instance = basicLightbox.create(`
-            <img src="${largeImageUrl}" width="800" height="600">
-        `);
+    const largeImageUrl = clickedImage.dataset.source;
 
-        instance.show();
-    });
+    const instance = basicLightbox.create(`
+      <img src="${largeImageUrl}" width="800" height="600">
+    `);
+
+    instance.show();
+  });
 });
-
