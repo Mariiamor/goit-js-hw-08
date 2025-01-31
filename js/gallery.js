@@ -67,15 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const gallery = document.querySelector(".gallery");
 
     gallery.addEventListener("click", (event) => {
-        event.preventDefault(); // Забороняємо завантаження зображення
+        event.preventDefault(); 
 
         const clickedImage = event.target.closest(".gallery-image");
 
-        if (!clickedImage) return; // Виходимо, якщо клік не по зображенню
+        if (!clickedImage) return;
+        const largeImageUrl = clickedImage.dataset.source; 
 
-        const largeImageUrl = clickedImage.dataset.source; // Отримуємо посилання на велике зображення
-
-        console.log("Large image URL:", largeImageUrl); // Тут можна реалізувати відкриття модального вікна або галереї
+        console.log("Large image URL:", largeImageUrl); 
     });
 });
 
@@ -83,15 +82,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const gallery = document.querySelector(".gallery");
 
     gallery.addEventListener("click", (event) => {
-        event.preventDefault(); // Забороняємо відкриття посилань у новій вкладці
+        event.preventDefault(); 
 
         const clickedImage = event.target.closest(".gallery-image");
 
-        if (!clickedImage) return; // Виходимо, якщо клік не по зображенню
+        if (!clickedImage) return; 
 
-        const largeImageUrl = clickedImage.dataset.source; // Отримуємо посилання на велике зображення
+        const largeImageUrl = clickedImage.dataset.source; 
 
-        // Створюємо модальне вікно
+        
         const instance = basicLightbox.create(`
             <img src="${largeImageUrl}" width="800" height="600">
         `);
